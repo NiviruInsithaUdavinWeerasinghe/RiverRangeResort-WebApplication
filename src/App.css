@@ -1,3 +1,9 @@
+/*
+ * This file is included to match the user's original file structure,
+ * but the main styling for the layout is handled by inline styles in App.jsx
+ * and through Sidebar/Header modules.
+ */
+
 .App {
   text-align: center;
 }
