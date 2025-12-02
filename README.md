@@ -1,70 +1,188 @@
-# Getting Started with Create React App
+# **River Range Resort – Management Web Application**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### **README.md**
 
-## Available Scripts
+## **Overview**
 
-In the project directory, you can run:
+This repository contains the official Management Web Application used internally by the staff of River Range Resort.
+The system centralizes all operational workflows including bookings, guest records, payments, activity management, analytics, and administrative controls.
+It is built to deliver a reliable, secure, and scalable tool for resort operations.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## **Purpose**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The application is designed to streamline daily processes across the entire resort. It serves as the backend control panel for handling:
 
-### `npm test`
+* Villa and hotel room bookings
+* Guest details, history, and availability tracking
+* Secure card payments using Stripe
+* Internal staff operations
+* Outdoor activity management
+* Exclusive pass management
+* Feedback, reviews, and customer service data
+* Reports, insights, and revenue analytics
+* Website content updates and media uploads
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Overall, it reduces manual work and ensures operational accuracy.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Tech Stack**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Frontend**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* React.js (CRA + CRACO)
+* CSS Modules, Tailwind, and custom component styling
+* Axios / Fetch for API communication
+* React Router for navigation
 
-### `npm run eject`
+### **Backend**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* Node.js with Express.js
+* Firebase Admin SDK
+* Stripe for payment processing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### **Database and Cloud Services**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Firebase Firestore (NoSQL database)
+* Firebase Authentication (staff login)
+* Firebase Storage (images and documents)
+* Firebase Hosting (deployment)
+* Optional BigQuery integration for analytics
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **Security Measures**
 
-## Learn More
+* HTTPS
+* Environment variables for all keys
+* Firestore database rules
+* CORS and secure API access
+* Role-based access control for staff
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## **Core Features**
 
-### Code Splitting
+### **Management and Admin**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Dashboard with real-time booking and revenue insights
+* Manage villas, rooms, availability, and seasonal pricing
+* Staff accounts and role permissions
+* Global content management
 
-### Analyzing the Bundle Size
+### **Front Desk**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+* Create bookings manually
+* Edit, cancel, or update reservations
+* Guest check-in and check-out status
+* View guest profiles and booking history
 
-### Making a Progressive Web App
+### **Accounting**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+* Stripe payment logs
+* Transaction details
+* Daily, weekly, and monthly revenue statistics
 
-### Advanced Configuration
+### **Outdoor Activity and Exclusive Pass Operations**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+* Manage activity schedules
+* Track exclusive pass usage
+* Approve and update outdoor experiences
 
-### Deployment
+### **Marketing**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+* Upload images to gallery
+* Publish events, offers, and announcements
 
-### `npm run build` fails to minify
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## **Users of This System**
+
+| Role                  | Purpose                                           |
+| --------------------- | ------------------------------------------------- |
+| Admin                 | Complete control over system and staff access     |
+| Manager               | Reporting, approvals, data oversight              |
+| Front Desk Staff      | Daily bookings and guest support                  |
+| Outdoor Activity Team | Activity scheduling and exclusive pass operations |
+| Marketing Team        | Website content and promotional updates           |
+
+---
+
+## **Developer Responsibilities**
+
+This project requires continuous development and maintenance. Responsibilities include:
+
+* Implementing new features and UI components
+* Building secure API endpoints
+* Maintaining database architecture and rules
+* Integrating and managing Stripe payments
+* Debugging and performance optimization
+* Mobile responsiveness and UI refinement
+* Documenting updates and version control management
+* Handling CI/CD and Firebase deployment
+
+---
+
+## **Setup Instructions**
+
+### **1. Clone Repository**
+
+```bash
+git clone https://github.com/your-repo-url/river-range-management.git
+cd river-range-management
+```
+
+### **2. Install Dependencies**
+
+```bash
+npm install
+```
+
+### **3. Environment Variables**
+
+Create a `.env` file in the root directory:
+
+```
+REACT_APP_FIREBASE_API_KEY=your_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_bucket
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender
+REACT_APP_FIREBASE_APP_ID=your_app_id
+
+REACT_APP_STRIPE_PUBLIC_KEY=your_stripe_key
+
+SUPABASE_URL=temporary_or_test_value
+SUPABASE_KEY=temporary_or_test_value
+```
+
+### **4. Start Development Server**
+
+```bash
+npm start
+```
+
+### **5. Backend Setup**
+
+Navigate to the backend folder:
+
+```bash
+cd server
+npm install
+node server.js
+```
+
+---
+
+## **Deployment**
+
+To deploy to Firebase Hosting:
+
+```bash
+npm run build
+firebase deploy
+```
+
+All environment variables should be set through Firebase configuration when deploying backend functions.
+
+---
