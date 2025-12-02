@@ -171,8 +171,6 @@ npm install
 node server.js
 ```
 
----
-
 ## **Deployment**
 
 To deploy to Firebase Hosting:
