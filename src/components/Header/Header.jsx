@@ -47,7 +47,7 @@ export default function Header({ isCollapsed, isDarkMode, handleThemeToggle }) {
       }}
     >
       <h1 className={titleClass}>
-        River Range Resort <span className={accentClass}>Admin</span>
+        River Range Resort! <span className={accentClass}>Admin</span>
       </h1>
 
       <div className="flex items-center">
