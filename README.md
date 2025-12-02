@@ -8,7 +8,7 @@ This repository contains the official Management Web Application used internally
 The system centralizes all operational workflows including bookings, guest records, payments, activity management, analytics, and administrative controls.
 It is built to deliver a reliable, secure, and scalable tool for resort operations.
 
----
+
 
 ## **Purpose**
 
@@ -26,7 +26,7 @@ The application is designed to streamline daily processes across the entire reso
 
 Overall, it reduces manual work and ensures operational accuracy.
 
----
+
 
 ## **Tech Stack**
 
@@ -59,7 +59,7 @@ Overall, it reduces manual work and ensures operational accuracy.
 * CORS and secure API access
 * Role-based access control for staff
 
----
+
 
 ## **Core Features**
 
@@ -94,7 +94,7 @@ Overall, it reduces manual work and ensures operational accuracy.
 * Upload images to gallery
 * Publish events, offers, and announcements
 
----
+
 
 ## **Users of This System**
 
@@ -106,7 +106,7 @@ Overall, it reduces manual work and ensures operational accuracy.
 | Outdoor Activity Team | Activity scheduling and exclusive pass operations |
 | Marketing Team        | Website content and promotional updates           |
 
----
+
 
 ## **Developer Responsibilities**
 
@@ -121,7 +121,7 @@ This project requires continuous development and maintenance. Responsibilities i
 * Documenting updates and version control management
 * Handling CI/CD and Firebase deployment
 
----
+
 
 ## **Setup Instructions**
 
@@ -185,4 +185,4 @@ firebase deploy
 
 All environment variables should be set through Firebase configuration when deploying backend functions.
 
----
+
