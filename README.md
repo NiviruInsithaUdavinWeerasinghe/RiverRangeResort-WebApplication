@@ -1,6 +1,5 @@
 # **River Range Resort – Management Web Application**
 
-### **README.md**
 
 ## **Overview**
 
