@@ -6,7 +6,11 @@ import {
   useLocation,
 } from "react-router-dom";
 
-// Pages
+// Layout components
+import Sidebar from "./components/Sidebar/Sidebar.jsx";
+import Header from "./components/Header/Header.jsx";
+
+// Pages — You will create these later
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Bookings from "./pages/Bookings/Bookings.jsx";
 import Villas from "./pages/Villas/Villas.jsx";
@@ -14,20 +18,14 @@ import Guests from "./pages/Guests/Guests.jsx";
 import Payments from "./pages/Payments/Payments.jsx";
 import Reports from "./pages/Reports/Reports.jsx";
 import ExclusivePassManagement from "./pages/ExclusivePass/ExclusivePassManagement.jsx";
+import Account from "./pages/Account/Account.jsx";
+import Settings from "./pages/Settings/Settings.jsx";
 
-// Layout Components
-import Sidebar from "./components/Sidebar/Sidebar.jsx";
-import Header from "./components/Header/Header.jsx";
-
-/* Custom hook to manage current page state, keeping it in sync with the URL. 
-  This is needed to pass 'currentPage' and 'setCurrentPage' correctly to the Sidebar.
-*/
-const usePageTracking = (initialPage) => {
+const usePageTracking = () => {
   const location = useLocation();
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(location.pathname);
 
   useEffect(() => {
-    // Update currentPage whenever the URL changes
     setCurrentPage(location.pathname);
   }, [location]);
 
@@ -36,67 +34,98 @@ const usePageTracking = (initialPage) => {
 
 function AppContent() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Use a sensible default path, like the dashboard route
-  const { currentPage, setCurrentPage } = usePageTracking("/");
+  const { currentPage, setCurrentPage } = usePageTracking();
 
-  const handleToggleSidebar = () => {
-    setIsCollapsed((prev) => !prev);
-  };
+  // Sidebar toggle
+  const handleToggleSidebar = () => setIsCollapsed((prev) => !prev);
 
-  // Determine the left margin for the main content based on sidebar state
-  const contentMarginLeft = isCollapsed ? "80px" : "240px";
+  // Theme toggle
+  const handleThemeToggle = () => setIsDarkMode((prev) => !prev);
+
+  // Apply dark mode to HTML tag
+  useEffect(() => {
+    if (isDarkMode) document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
+  }, [isDarkMode]);
 
   return (
-    <div style={{ display: "flex", backgroundColor: "#0f172a" }}>
-      {/* Sidebar is fixed, so the margin on the content div handles the layout */}
+    <div
+      className={`flex min-h-screen transition-colors duration-500 
+      ${isDarkMode ? "bg-slate-900 text-slate-300" : "bg-white text-gray-800"}`}
+    >
       <Sidebar
         isCollapsed={isCollapsed}
         onToggle={handleToggleSidebar}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={setCurrentPage} // <-- add this
+        isDarkMode={isDarkMode}
       />
 
       <div
         style={{
-          marginLeft: contentMarginLeft,
+          marginLeft: isCollapsed ? "80px" : "240px",
           width: "100%",
-          minHeight: "100vh",
-          transition: "margin-left 0.35s cubic-bezier(0.4,0,0.2,1)", // Match Header transition
+          transition: "margin-left 0.35s ease",
         }}
       >
-        {/* Header needs isCollapsed to calculate its position/width */}
-        <Header isCollapsed={isCollapsed} />
+        <Header
+          isCollapsed={isCollapsed}
+          isDarkMode={isDarkMode}
+          handleThemeToggle={handleThemeToggle}
+        />
 
-        {/* Padding-top to account for the fixed Header's height (70px) */}
-        <div style={{ padding: "20px", paddingTop: "90px" }}>
+        <main style={{ padding: "20px", paddingTop: "90px" }}>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/bookings" element={<Bookings />} />
-            <Route path="/villas" element={<Villas />} />
-            <Route path="/guests" element={<Guests />} />
-            <Route path="/payments" element={<Payments />} />
-            <Route path="/reports" element={<Reports />} />
+            <Route path="/" element={<Dashboard isDarkMode={isDarkMode} />} />
+            <Route
+              path="/bookings"
+              element={<Bookings isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/villas"
+              element={<Villas isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/guests"
+              element={<Guests isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/payments"
+              element={<Payments isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/reports"
+              element={<Reports isDarkMode={isDarkMode} />}
+            />
+
+            {/* Exclusive Pass */}
             <Route
               path="/exclusive-pass"
-              element={<ExclusivePassManagement />}
+              element={<ExclusivePassManagement isDarkMode={isDarkMode} />}
+            />
+
+            {/* Bottom Menu Pages */}
+            <Route
+              path="/account"
+              element={<Account isDarkMode={isDarkMode} />}
+            />
+            <Route
+              path="/settings"
+              element={<Settings isDarkMode={isDarkMode} />}
             />
           </Routes>
-        </div>
+        </main>
       </div>
     </div>
   );
 }
 
-function App() {
-  /* The <AppContent /> component is wrapped inside <Router> to allow 
-    useLocation hook to work within the custom hook usePageTracking.
-  */
+export default function App() {
   return (
     <Router>
       <AppContent />
     </Router>
   );
 }
-
-export default App;

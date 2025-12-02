@@ -1,55 +1,9 @@
-/* Variables inherited from Sidebar for consistency */
+/* Header.css - STRIPPED VERSION */
+
+/* Variables and custom classes are now defined using Tailwind utility classes 
+   in the Header.jsx component itself for full theme integration. */
 :root {
-    --header-bg: rgba(15, 23, 42, 0.9); /* Slate 900 dark blue, slightly transparent */
-    --accent-color: #fbbf24; /* Amber 400 */
-    --text-color: #f8fafc; /* White/Slate 50 */
+  /* Remove custom variables */
 }
 
-/* Header */
-.header {
-    height: 70px;
-    position: fixed;
-    top: 0;
-    z-index: 3000;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 24px;
-
-    background: var(--header-bg);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-}
-
-.title {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-color);
-    letter-spacing: 0.6px;
-    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
-}
-
-.accentText {
-    color: var(--accent-color);
-    font-weight: 700;
-}
-
-.loginBtn {
-    color: var(--text-color);
-    border: 1px solid var(--accent-color);
-    background: transparent;
-    padding: 6px 16px;
-    font-weight: 500;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 14px;
-}
-
-.loginBtn:hover {
-    background: rgba(251, 191, 36, 0.15);
-    border-color: var(--text-color);
-}
+/* Remove custom classes */

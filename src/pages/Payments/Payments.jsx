@@ -1,15 +1,23 @@
 import React from 'react';
+import styles from '../PageStyles/PageStyles.module.css'; // FIX: Corrected import path
 
-const Payments = () => (
-    <div style={{ backgroundColor: 'rgba(30, 41, 59, 0.5)', padding: '24px', borderRadius: '12px', boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)', minHeight: '80vh' }}>
-        <h2 style={{ color: '#fbbf24', fontSize: '28px', marginBottom: '16px', borderBottom: '1px solid rgba(255, 255, 255, 0.1)', paddingBottom: '8px' }}>Payment History</h2>
-        <p style={{ color: '#f8fafc', fontSize: '16px' }}>
-            Track all transactions, refunds, and payment statuses.
-        </p>
-        <div style={{ marginTop: '20px', backgroundColor: 'rgba(30, 41, 59, 1)', padding: '16px', borderRadius: '8px', color: '#94a3b8' }}>
-            [Placeholder for Transaction Log and Payment Gateway Status]
+const Payments = ({ isDarkMode }) => {
+    const containerClass = isDarkMode ? `${styles.pageContainer} ${styles.darkMode}` : styles.pageContainer;
+    const headerClass = isDarkMode ? `${styles.pageHeader} ${styles.darkMode}` : styles.pageHeader;
+    const textClass = isDarkMode ? `${styles.pageText} ${styles.darkMode}` : styles.pageText;
+    const cardClass = isDarkMode ? `${styles.contentCard} ${styles.darkMode}` : styles.contentCard;
+
+    return (
+        <div className={containerClass}>
+            <h2 className={headerClass}>Payment History</h2>
+            <p className={textClass}>
+                Track all transactions, refunds, and payment statuses.
+            </p>
+            <div className={cardClass} style={{ marginTop: '20px' }}>
+                [Placeholder for Transaction Log and Payment Gateway Status]
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default Payments;

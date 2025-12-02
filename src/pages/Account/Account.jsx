@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '../PageStyles/PageStyles.module.css';
 
-const ExclusivePassManagement = ({ isDarkMode }) => {
+const Account = ({ isDarkMode }) => {
     const containerClass = isDarkMode ? `${styles.pageContainer} ${styles.darkMode}` : styles.pageContainer;
     const headerClass = isDarkMode ? `${styles.pageHeader} ${styles.darkMode}` : styles.pageHeader;
     const textClass = isDarkMode ? `${styles.pageText} ${styles.darkMode}` : styles.pageText;
@@ -9,17 +9,17 @@ const ExclusivePassManagement = ({ isDarkMode }) => {
 
     return (
         <div className={containerClass}>
-            <h2 className={headerClass}>Exclusive Pass Management</h2>
+            <h2 className={headerClass}>Account</h2>
 
             <p className={textClass}>
-                Manage exclusive passes, create VIP offers, and track guest privilege usage.
+                View and manage your user account details.
             </p>
 
             <div className={cardClass} style={{ marginTop: '20px' }}>
-                [Placeholder for Exclusive Pass Tools]
+                [Placeholder for Account Information]
             </div>
         </div>
     );
 };
 
-export default ExclusivePassManagement;
+export default Account;

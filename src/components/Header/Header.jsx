@@ -1,47 +1,41 @@
-import React, { useState } from "react";
-import { Sun, Moon } from 'lucide-react';
-// Import motion and AnimatePresence for icon animation
-import { motion, AnimatePresence } from 'framer-motion';
+import React from "react";
+import { Sun, Moon } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-export default function Header({ isCollapsed }) {
-  // State to track if dark mode is active (false = light mode, true = dark mode)
-  const [isDarkMode, setIsDarkMode] = useState(false);
+export default function Header({ isCollapsed, isDarkMode, handleThemeToggle }) {
+  const leftPosition = isCollapsed ? "80px" : "240px";
+  const headerWidth = isCollapsed ? "calc(100% - 80px)" : "calc(100% - 240px)";
 
-  // Determine left position and width based on sidebar state (240px wide or 80px collapsed)
-  const leftPosition = isCollapsed ? '80px' : '240px';
-  const headerWidth = isCollapsed ? 'calc(100% - 80px)' : 'calc(100% - 240px)';
+  // Dynamic Header Styles
+  const bgClass = isDarkMode
+    ? "bg-slate-900/90 border-slate-700/50 shadow-xl"
+    : "bg-white/95 border-slate-200 shadow-md";
 
-  // Tailwind classes for styling (dark slate/blue with amber accent)
-  const headerBaseClass = `fixed top-0 z-30 h-[70px] flex items-center justify-between px-6 
-                          bg-slate-900/90 backdrop-blur-md border-b border-slate-700/50 shadow-xl`;
+  const headerBaseClass = `fixed top-0 z-30 h-[70px] flex items-center justify-between px-6
+                           backdrop-blur-md border-b transition-all duration-350 ${bgClass}`;
 
-  const titleClass = 'text-xl font-semibold text-slate-50 tracking-wider text-shadow-md';
-  const accentClass = 'text-amber-400 font-bold';
+  const titleClass = `text-xl font-semibold tracking-wider ${isDarkMode ? "text-slate-50" : "text-gray-800"}`;
+  const accentClass = `font-bold ${isDarkMode ? "text-amber-400" : "text-amber-600"}`;
 
-  const loginBtnClass = `px-4 py-1 text-sm font-medium text-white rounded-lg cursor-pointer transition duration-300
-                         border border-amber-400 hover:bg-amber-400/15 hover:border-slate-50`;
+  const loginBtnStyles = isDarkMode
+    ? "text-white border-amber-400 hover:bg-amber-400/15 hover:border-slate-50"
+    : "text-gray-700 border-amber-500 hover:bg-amber-100/70 hover:border-amber-700";
 
-  // Class for the icon button, giving it some margin on the right.
-  // Removed 'relative overflow-hidden'
-  const themeToggleClass = `p-2 mr-4 text-amber-400 rounded-full cursor-pointer transition duration-300 
-                            hover:bg-amber-400/10 hover:text-white flex items-center justify-center`; // Added flex centering
+  const loginBtnClass = `px-4 py-1 text-sm font-medium rounded-lg cursor-pointer transition duration-300 border ${loginBtnStyles}`;
 
-  const handleThemeToggle = () => {
-    // Toggle the state for demonstration purposes
-    setIsDarkMode(prev => !prev);
-    // In a full application, you would apply the 'dark' class to the <html> tag here.
-    console.log(`Theme toggled to: ${!isDarkMode ? 'Dark' : 'Light'}`);
-  };
-  
-  // Framer Motion variants for icon animation
+  const themeToggleStyles = isDarkMode
+    ? "text-amber-400 hover:bg-amber-400/10 hover:text-white"
+    : "text-amber-600 hover:bg-amber-100/50";
+
+  const themeToggleClass = `p-2 mr-4 rounded-full cursor-pointer transition duration-300 flex items-center justify-center ${themeToggleStyles}`;
+
   const iconVariants = {
-    hidden: { opacity: 0, scale: 0.5, rotate: isDarkMode ? 360 : -360 }, // Rotate based on current mode for smoother transition
+    hidden: { opacity: 0, scale: 0.5, rotate: isDarkMode ? 360 : -360 },
     visible: { opacity: 1, scale: 1, rotate: 0 },
     exit: { opacity: 0, scale: 0.5, rotate: isDarkMode ? -360 : 360 },
   };
-  
-  // Motion component wrapper for the icon
-  const AnimatedIcon = motion((props) => isDarkMode ? <Moon {...props} /> : <Sun {...props} />);
+
+  const AnimatedIcon = motion((props) => (isDarkMode ? <Moon {...props} /> : <Sun {...props} />));
 
   return (
     <header
@@ -49,7 +43,7 @@ export default function Header({ isCollapsed }) {
       style={{
         left: leftPosition,
         width: headerWidth,
-        transition: 'all 0.35s cubic-bezier(0.4,0,0.2,1)',
+        transition: "all 0.35s cubic-bezier(0.4,0,0.2,1), width 0.35s cubic-bezier(0.4,0,0.2,1)", 
       }}
     >
       <h1 className={titleClass}>
@@ -57,32 +51,27 @@ export default function Header({ isCollapsed }) {
       </h1>
 
       <div className="flex items-center">
-        {/* Theme Toggle Button (positioned left of LOGIN button) */}
         <button
-          className={themeToggleClass}
-          onClick={handleThemeToggle}
-          aria-label="Toggle theme"
-          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-        >
-          {/* Use AnimatePresence to manage the exit and entry animation of the icons */}
+  className={themeToggleClass + " z-50"} // Ensure button is on top
+  onClick={handleThemeToggle}
+  aria-label="Toggle theme"
+  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+>
+
           <AnimatePresence mode="wait" initial={false}>
             <AnimatedIcon
-              key={isDarkMode ? "moon" : "sun"} // Key is crucial for AnimatePresence to track changes
+              key={isDarkMode ? "moon" : "sun"}
               size={20}
               initial="hidden"
               animate="visible"
               exit="exit"
               variants={iconVariants}
-              transition={{ duration: 0.4 }} // Animation duration
-              // REMOVED: className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" 
+              transition={{ duration: 0.4 }}
             />
           </AnimatePresence>
-          {/* REMOVED: Spacer div */}
         </button>
 
-        <button className={loginBtnClass}>
-          LOGIN
-        </button>
+        <button className={loginBtnClass}>LOGIN</button>
       </div>
     </header>
   );
