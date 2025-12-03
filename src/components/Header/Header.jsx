@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Sun, Moon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Header({ isCollapsed, isDarkMode, handleThemeToggle }) {
+import LoginModal from "../Modals/LoginModal"; // Adjust the path if needed
+
+
+export default function Header({ isCollapsed, isDarkMode, handleThemeToggle, handleLoginOpen }) {
+
   const leftPosition = isCollapsed ? "80px" : "240px";
   const headerWidth = isCollapsed ? "calc(100% - 80px)" : "calc(100% - 240px)";
 
@@ -43,21 +47,20 @@ export default function Header({ isCollapsed, isDarkMode, handleThemeToggle }) {
       style={{
         left: leftPosition,
         width: headerWidth,
-        transition: "all 0.35s cubic-bezier(0.4,0,0.2,1), width 0.35s cubic-bezier(0.4,0,0.2,1)", 
+        transition: "all 0.95s cubic-bezier(0.4,0,0.2,1), width 0.95s cubic-bezier(0.4,0,0.2,1)", 
       }}
     >
       <h1 className={titleClass}>
-        River Range Resort! <span className={accentClass}>Admin</span>
+        River Range Resort - <span className={accentClass}>Admin</span>
       </h1>
 
       <div className="flex items-center">
         <button
-  className={themeToggleClass + " z-50"} // Ensure button is on top
-  onClick={handleThemeToggle}
-  aria-label="Toggle theme"
-  title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
->
-
+          className={themeToggleClass + " z-50"}
+          onClick={handleThemeToggle}
+          aria-label="Toggle theme"
+          title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+        >
           <AnimatePresence mode="wait" initial={false}>
             <AnimatedIcon
               key={isDarkMode ? "moon" : "sun"}
@@ -71,7 +74,13 @@ export default function Header({ isCollapsed, isDarkMode, handleThemeToggle }) {
           </AnimatePresence>
         </button>
 
-        <button className={loginBtnClass}>LOGIN</button>
+        <button
+  className={loginBtnClass}
+  onClick={handleLoginOpen} // just call the handler
+>
+  LOGIN
+</button>
+
       </div>
     </header>
   );
