@@ -47,7 +47,7 @@ export default function Header({ isCollapsed, isDarkMode, handleThemeToggle, han
       style={{
         left: leftPosition,
         width: headerWidth,
-        transition: "all 0.95s cubic-bezier(0.4,0,0.2,1), width 0.95s cubic-bezier(0.4,0,0.2,1)", 
+        transition: "all 0.50s cubic-bezier(0.4,0,0.2,1), width 0.50s cubic-bezier(0.4,0,0.2,1)", 
       }}
     >
       <h1 className={titleClass}>
