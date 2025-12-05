@@ -17,7 +17,7 @@ import Header from "./components/Header/Header.jsx";
 import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import Bookings from "./pages/Bookings/Bookings.jsx";
 import Villas from "./pages/Villas/Villas.jsx";
-import Guests from "./pages/Guests/Guests.jsx";
+import Customers from "./pages/Customers/Customers.jsx";
 import Payments from "./pages/Payments/Payments.jsx";
 import Reports from "./pages/Reports/Reports.jsx";
 import ExclusivePassManagement from "./pages/ExclusivePass/ExclusivePassManagement.jsx";
@@ -115,10 +115,7 @@ function AppContent() {
          * Instead, I'm ensuring the parent div is full height with min-h-screen and
          * changing the 'main' element to use 'min-h-[calc(100vh-90px)]' to explicitly fill the screen height minus the header height (90px).
          */}
-        <main
-          style={{ padding: "20px", paddingTop: "90px" }}
-          className="min-h-[calc(100vh-90px)]"
-        >
+        <main style={{ padding: "20px", paddingTop: "90px" }}>
           {/* 4. Implement AnimatePresence for transitions */}
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
@@ -168,17 +165,17 @@ function AppContent() {
                 }
               />
               <Route
-                path="/guests"
+                path="/customers"
                 element={
                   <motion.div
-                    key="/guests"
+                    key="/customers"
                     initial="initial"
                     animate="in"
                     exit="out"
                     variants={pageVariants}
                     transition={pageTransition}
                   >
-                    <Guests isDarkMode={isDarkMode} />
+                    <Customers isDarkMode={isDarkMode} />
                   </motion.div>
                 }
               />

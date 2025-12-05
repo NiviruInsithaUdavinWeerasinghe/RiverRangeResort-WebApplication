@@ -1,22 +1,28 @@
-/* C:\River Range Resort - Web Application\river-range-resort-webapp\src\pages\PageStyles\PageStyles.module.css */
+/* PageStyles.module.css */
 
-/* Main container for a page */
+/* -------------------
+   Main container for a page
+   ------------------- */
 .pageContainer {
+    --delete-arrow-color: #e2e6ea; /* Light mode page background */
     background-color: #e2e6ea; /* Slightly darker soft gray for light mode */
     padding: 24px;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Soft shadow */
-    min-height: 80vh;
+    min-height: 85vh;
     transition: all 0.5s ease;
 }
 
 /* Dark Mode Overrides for Main Container */
 .pageContainer.darkMode {
+    --delete-arrow-color: #1e293b; /* Dark mode page background */
     background-color: #1e293b; /* Slate 900 for dark mode page */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Page Header */
+/* -------------------
+   Page Header
+   ------------------- */
 .pageHeader {
     color: #f59e0b; /* Amber 500 */
     font-size: 28px;
@@ -32,7 +38,9 @@
     border-bottom: 2px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Page Description/Text */
+/* -------------------
+   Page Description/Text
+   ------------------- */
 .pageText {
     color: #334155; /* Darker Slate 700 for better readability */
     font-size: 16px;
@@ -44,7 +52,9 @@
     color: #f1f5f9; /* Slate 100 for readability */
 }
 
-/* Content Card (KPIs, placeholders, inner content boxes) - Layer 2 */
+/* -------------------
+   Content Card (KPIs, placeholders, inner content boxes) - Layer 2
+   ------------------- */
 .contentCard {
     background-color: #ffffff; /* Clean white card for light mode */
     padding: 20px;
@@ -75,7 +85,9 @@
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Lifted shadow in dark mode */
 }
 
-/* Card Title (KPI label) */
+/* -------------------
+   Card Title (KPI label)
+   ------------------- */
 .cardTitle {
     color: #475569; /* Slate 600 for better contrast in light mode */
     font-size: 16px;
@@ -99,4 +111,210 @@
 /* Dark Mode Overrides for Card Value */
 .cardValue.darkMode {
     color: #fbbf24; /* Amber 400 */
+}
+
+/* -------------------------------
+   Delete Button - styles & animation
+   ------------------------------- */
+
+/* Root delete button. Uses CSS variable --btn-bg to set the triangle color.
+   Inline style sets --btn-bg per state in the component. */
+.deleteButton {
+    position: relative;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    background: transparent; /* button background set by variable via pseudo element and child elements */
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent; /* default */
+}
+
+/* The visible background color for the button is applied to a full-size pseudo element
+   so we can create a triangular divider that matches the same color */
+.deleteButton::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 48px; /* leave left 48px for the icon area */
+    background: var(--btn-bg, transparent);
+    z-index: 0;
+    border-right: 0;
+    transition: background .25s ease, transform .25s ease;
+}
+
+/* The small triangle between icon and text */
+.deleteButton::before {
+    content: "";
+    position: absolute;
+    left: 47px; /* sits slightly overlapping the icon/text divider */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid var(--delete-arrow-color); /* <--- UPDATED THIS LINE */
+    z-index: 4;
+    transition: border-left-color .25s ease, left .25s ease;
+}
+
+/* Icon container sits above pseudo elements (z-index) */
+.deleteIconContainer {
+    position: relative;
+    z-index: 10;
+    background: transparent; /* ensure transparent */
+}
+
+/* Text container sits above the pseudo elements */
+.deleteText {
+    position: relative;
+    z-index: 10;
+    color: white; /* text on colored background is white */
+    padding-left: 15px;
+    padding-right: 12px;
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .22s ease, transform .22s ease;
+    white-space: nowrap;
+}
+
+/* When the button is in idle width (w-12) the text will be hidden
+   We rely on width classes applied from JSX for the container width (e.g., w-12, w-32) */
+.deleteButton.w-12 .deleteText,
+.deleteButton[data-hidden="true"] .deleteText {
+    opacity: 0;
+    transform: translateX(-6px);
+    pointer-events: none;
+}
+
+/* Tilt animation for decorative rotation of the trash icon */
+@keyframes tiltAnim {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-6deg); }
+    75% { transform: rotate(6deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* class applied to the icon element when hover state */
+.tiltIcon {
+    display: inline-block;
+    animation: tiltAnim 650ms ease-in-out;
+    transform-origin: center;
+}
+
+/* Focus styles for accessibility */
+.deleteButton:focus {
+    outline: 3px solid rgba(99, 102, 241, 0.18);
+    outline-offset: 2px;
+}
+
+/* Delete button border — color changes based on state */
+.deleteButton[data-state="hover"] { border-color: #ef4444; }   /* red-500 */
+.deleteButton[data-state="confirm"] { border-color: #3b82f6; } /* blue-500 */
+.deleteButton[data-state="deleted"] { border-color: #10b981; } /* emerald-500 */
+.deleteButton[data-state="idle"] { border-color: transparent; }
+
+/* Small responsive adjustments */
+@media (max-width: 640px) {
+    .deleteButton::after { inset: 0 0 0 44px; }
+    .deleteButton::before { left: 40px; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left-width: 5px; }
+}
+
+
+
+/* -------------------
+   Form Input Fields
+   ------------------- */
+.inputField {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #c1c7cd;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: #1e293b;
+    background-color: #ffffff;
+}
+
+.inputField:focus {
+    outline: none;
+    border-color: #4f46e5; /* Indigo border on focus */
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Dark Mode Overrides for Inputs */
+.inputField.darkMode {
+    background-color: #2c3e50;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+}
+
+.inputField.darkMode:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* -------------------
+   Form Textarea
+   ------------------- */
+.textareaField {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #c1c7cd;
+    font-size: 14px;
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.3s ease;
+    color: #1e293b;
+    background-color: #ffffff;
+}
+
+.textareaField:focus {
+    outline: none;
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* Dark Mode Overrides for Textarea */
+.textareaField.darkMode {
+    background-color: #2c3e50;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #cbd5e1;
+}
+
+.textareaField.darkMode:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* -------------------
+   Form Submit Button
+   ------------------- */
+.button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: none;
+    background-color: #4f46e5;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #6366f1;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* Dark Mode Overrides for Button */
+.button.darkMode {
+    background-color: #6366f1;
+    color: #f1f5f9;
+}
+
+.button.darkMode:hover {
+    background-color: #818cf8;
+    box-shadow: 0 4px 12px rgba(129, 140, 248, 0.3);
 }

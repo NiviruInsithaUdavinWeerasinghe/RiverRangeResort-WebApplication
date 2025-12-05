@@ -24,7 +24,7 @@ export default function Sidebar({ isCollapsed, onToggle, currentPage, setCurrent
     { name: "Dashboard", path: "/", icon: <LayoutDashboard size={22} /> },
     { name: "Bookings", path: "/bookings", icon: <CalendarCheck size={22} /> },
     { name: "Villas", path: "/villas", icon: <Home size={22} /> },
-    { name: "Guests", path: "/guests", icon: <Users size={22} /> },
+    { name: "Customers", path: "/customers", icon: <Users size={22} /> },
     { name: "Payments", path: "/payments", icon: <Wallet size={22} /> },
     { name: "Reports", path: "/reports", icon: <BarChart size={22} /> },
     { name: "Exclusive Pass", path: "/exclusive-pass", icon: <Star size={22} /> },
